@@ -1,0 +1,4 @@
+<Solution>
+  <Project Path="WikiScrapper.csproj" />
+  <Project Path="WikiScrapper.Tests\WikiScrapper.Tests.csproj" />
+</Solution>

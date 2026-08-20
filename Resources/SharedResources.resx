@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype"><value>text/microsoft-resx</value></resheader>
+  <resheader name="version"><value>2.0</value></resheader>
+  <resheader name="reader"><value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+  <resheader name="writer"><value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+  <data name="Nav.Dashboard" xml:space="preserve"><value>Dashboard</value></data>
+  <data name="Nav.Voivodeships" xml:space="preserve"><value>Voivodeships</value></data>
+  <data name="Nav.Countries" xml:space="preserve"><value>Countries</value></data>
+  <data name="Nav.Logs" xml:space="preserve"><value>Logs</value></data>
+  <data name="Nav.ApiDocs" xml:space="preserve"><value>API Docs</value></data>
+  <data name="Nav.Language" xml:space="preserve"><value>Language</value></data>
+  <data name="Nav.Syncing" xml:space="preserve"><value>Syncing…</value></data>
+  <data name="Nav.Toggle" xml:space="preserve"><value>Toggle navigation</value></data>
+  <data name="Footer.Text" xml:space="preserve"><value>WikiScrapper — Wikipedia summaries (English / Polski) of Polish voivodeships and world countries. Times are shown in your local timezone.</value></data>
+  <data name="Common.Close" xml:space="preserve"><value>Close</value></data>
+  <data name="Common.All" xml:space="preserve"><value>All</value></data>
+  <data name="Common.Apply" xml:space="preserve"><value>Apply</value></data>
+  <data name="Common.Clear" xml:space="preserve"><value>Clear</value></data>
+  <data name="Common.Time" xml:space="preserve"><value>Time</value></data>
+  <data name="Common.Level" xml:space="preserve"><value>Level</value></data>
+  <data name="Common.Source" xml:space="preserve"><value>Source</value></data>
+  <data name="Common.Message" xml:space="preserve"><value>Message</value></data>
+  <data name="Common.Exception" xml:space="preserve"><value>Exception</value></data>
+  <data name="Common.Fetched" xml:space="preserve"><value>Fetched</value></data>
+  <data name="Common.NotFetched" xml:space="preserve"><value>Not fetched</value></data>
+  <data name="Common.Never" xml:space="preserve"><value>never</value></data>
+  <data name="Common.Details" xml:space="preserve"><value>details</value></data>
+  <data name="Common.Previous" xml:space="preserve"><value>Previous</value></data>
+  <data name="Common.Next" xml:space="preserve"><value>Next</value></data>
+  <data name="Common.OpenOnWikipedia" xml:space="preserve"><value>Open on Wikipedia</value></data>
+  <data name="Dashboard.Title" xml:space="preserve"><value>Dashboard</value></data>
+  <data name="Dashboard.Intro" xml:space="preserve"><value>Wikipedia summaries ({0}) for 16 Polish voivodeships and world countries. Sync fetches both English and Polish.</value></data>
+  <data name="Dashboard.FirstRun" xml:space="preserve"><value>Nothing has been fetched yet. Press &lt;strong&gt;Synchronize with Wikipedia&lt;/strong&gt; to download descriptions. The run usually finishes in under a minute and you can keep using the rest of the app while it works.</value></data>
+  <data name="Dashboard.Voivodeships" xml:space="preserve"><value>Voivodeships</value></data>
+  <data name="Dashboard.Countries" xml:space="preserve"><value>Countries</value></data>
+  <data name="Dashboard.DescriptionsFetched" xml:space="preserve"><value>descriptions fetched</value></data>
+  <data name="Dashboard.LastFetch" xml:space="preserve"><value>Last fetch</value></data>
+  <data name="Dashboard.LocalTime" xml:space="preserve"><value>local time</value></data>
+  <data name="Dashboard.SyncButton" xml:space="preserve"><value>Synchronize with Wikipedia</value></data>
+  <data name="Dashboard.SyncRunning" xml:space="preserve"><value>Synchronizing…</value></data>
+  <data name="Dashboard.SyncBackground" xml:space="preserve"><value>Runs in the background; you can leave this page.</value></data>
+  <data name="Dashboard.RecentActivity" xml:space="preserve"><value>Recent activity</value></data>
+  <data name="Dashboard.ViewAllLogs" xml:space="preserve"><value>View all logs</value></data>
+  <data name="Dashboard.NoLogs" xml:space="preserve"><value>No log entries yet. Run a synchronization to get started.</value></data>
+  <data name="Dashboard.LastSync" xml:space="preserve"><value>Last sync: {0} succeeded, {1} failed, {2} skipped.</value></data>
+  <data name="Dashboard.MoreErrors" xml:space="preserve"><value>…and {0} more. See &lt;a href="/Logs?level=Error"&gt;Logs&lt;/a&gt;.</value></data>
+  <data name="Dashboard.SyncAlreadyRunning" xml:space="preserve"><value>A synchronization is already running.</value></data>
+  <data name="Voivodeships.Title" xml:space="preserve"><value>Polish Voivodeships</value></data>
+  <data name="Voivodeships.Intro" xml:space="preserve"><value>{0} Wikipedia summaries of the 16 voivodeships (pl: województwa). Click a fetched card for the full text.</value></data>
+  <data name="Voivodeships.NotFetchedYet" xml:space="preserve"><value>Not fetched yet in {0}.</value></data>
+  <data name="Voivodeships.RunSync" xml:space="preserve"><value>Run a sync on the Dashboard</value></data>
+  <data name="Voivodeships.RunSyncHint" xml:space="preserve"><value>to download this description.</value></data>
+  <data name="Voivodeships.FetchedAt" xml:space="preserve"><value>Fetched {0}</value></data>
+  <data name="Countries.Title" xml:space="preserve"><value>World Countries</value></data>
+  <data name="Countries.Intro" xml:space="preserve"><value>{0} Wikipedia summaries. Click a fetched row for the full text.</value></data>
+  <data name="Countries.Search" xml:space="preserve"><value>Search</value></data>
+  <data name="Countries.SearchPlaceholder" xml:space="preserve"><value>Name or ISO code…</value></data>
+  <data name="Countries.SearchAria" xml:space="preserve"><value>Search countries</value></data>
+  <data name="Countries.Status" xml:space="preserve"><value>Status</value></data>
+  <data name="Countries.PageSize" xml:space="preserve"><value>Page size</value></data>
+  <data name="Countries.NoMatch" xml:space="preserve"><value>No countries match the current filters.</value></data>
+  <data name="Countries.RunSyncMissing" xml:space="preserve"><value>to fetch missing descriptions.</value></data>
+  <data name="Countries.Code" xml:space="preserve"><value>Code</value></data>
+  <data name="Countries.Name" xml:space="preserve"><value>Name</value></data>
+  <data name="Countries.Description" xml:space="preserve"><value>Description</value></data>
+  <data name="Countries.NotFetchedRow" xml:space="preserve"><value>Not fetched yet —</value></data>
+  <data name="Countries.Pagination" xml:space="preserve"><value>Countries pagination</value></data>
+  <data name="Countries.PageOf" xml:space="preserve"><value>Page {0} of {1} ({2} countries)</value></data>
+  <data name="Countries.VirtualStatus" xml:space="preserve"><value>Showing all {0} countries — rows load as you scroll</value></data>
+  <data name="Countries.LoadingChunk" xml:space="preserve"><value>Loading…</value></data>
+  <data name="Logs.Title" xml:space="preserve"><value>Application Logs</value></data>
+  <data name="Logs.Intro" xml:space="preserve"><value>The 100 most recent audit entries (local time). Full structured logs are appended to &lt;code&gt;logs/wiki-scrapper-YYYYMMDD.log&lt;/code&gt; in the web application folder (one file per day; reload the file in the editor to see the latest lines).</value></data>
+  <data name="Logs.NoEntries" xml:space="preserve"><value>No log entries yet.</value></data>
+  <data name="Logs.NoEntriesLevel" xml:space="preserve"><value>No log entries at this level.</value></data>
+  <data name="Js.UnableReadStatus" xml:space="preserve"><value>Unable to read sync status.</value></data>
+  <data name="Js.UnableStartSync" xml:space="preserve"><value>Unable to start synchronization.</value></data>
+  <data name="Js.Starting" xml:space="preserve"><value>Starting…</value></data>
+</root>

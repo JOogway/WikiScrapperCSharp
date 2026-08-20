@@ -1,0 +1,52 @@
+@model WikiScrapper.Models.CountriesIndexViewModel
+@{
+    ViewData["Title"] = Localizer["Countries.Title"].Value;
+    var langName = WikiLanguageExtensions.ToDisplayName(WikiLang.Current);
+}
+
+<h1 class="mb-2">@Localizer["Countries.Title"]</h1>
+<p class="text-muted mb-4">@Localizer["Countries.Intro", langName]</p>
+
+<form method="get" class="row g-2 mb-4 align-items-end" id="countries-filter-form">
+    <div class="col-sm-5 col-md-4">
+        <label class="form-label" for="search">@Localizer["Countries.Search"]</label>
+        <div class="position-relative">
+            <input type="text" id="search" name="search" value="@Model.Search" class="form-control pe-5"
+                   placeholder="@Localizer["Countries.SearchPlaceholder"]" aria-label="@Localizer["Countries.SearchAria"]"
+                   autocomplete="off" />
+            <span id="search-spinner" class="spinner-border spinner-border-sm text-secondary d-none countries-search-spinner"
+                  role="status" aria-hidden="true"></span>
+        </div>
+    </div>
+    <div class="col-sm-3 col-md-2">
+        <label class="form-label" for="fetched">@Localizer["Countries.Status"]</label>
+        <select id="fetched" name="fetched" class="form-select">
+            <option value="" selected="@(Model.Fetched is null)">@Localizer["Common.All"]</option>
+            <option value="yes" selected="@(Model.Fetched == "yes")">@Localizer["Common.Fetched"]</option>
+            <option value="no" selected="@(Model.Fetched == "no")">@Localizer["Common.NotFetched"]</option>
+        </select>
+    </div>
+    <div class="col-sm-2 col-md-2">
+        <label class="form-label" for="pageSize">@Localizer["Countries.PageSize"]</label>
+        <select id="pageSize" name="pageSize" class="form-select">
+            @foreach (var size in new[] { 10, 20, 50 })
+            {
+                <option value="@size" selected="@(!Model.VirtualizeAll && Model.Countries.PageSize == size)">@size</option>
+            }
+            <option value="all" selected="@(Model.VirtualizeAll)">@Localizer["Common.All"]</option>
+        </select>
+    </div>
+    <input type="hidden" name="sort" value="@Model.Sort" />
+    <input type="hidden" name="dir" value="@Model.Dir" />
+    <div class="col-auto">
+        <button type="submit" class="btn btn-primary">@Localizer["Common.Apply"]</button>
+    </div>
+    @if (!string.IsNullOrWhiteSpace(Model.Search) || Model.Fetched is not null)
+    {
+        <div class="col-auto">
+            <a asp-action="Index" class="btn btn-outline-secondary">@Localizer["Common.Clear"]</a>
+        </div>
+    }
+</form>
+
+<partial name="_CountriesResults" model="Model" />

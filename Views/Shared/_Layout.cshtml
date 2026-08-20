@@ -1,0 +1,93 @@
+@using System.Text.Json
+<!DOCTYPE html>
+<html lang="@CultureInfo.CurrentUICulture.TwoLetterISOLanguageName">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - WikiScrapper</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+</head>
+<body>
+    @{
+        var currentController = ViewContext.RouteData.Values["controller"]?.ToString();
+        bool NavActive(string controller) =>
+            string.Equals(currentController, controller, StringComparison.OrdinalIgnoreCase);
+    }
+    <header>
+        <nav class="navbar navbar-expand-sm navbar-dark bg-dark border-bottom mb-3 sticky-top">
+            <div class="container">
+                <a class="navbar-brand fw-semibold" asp-controller="Home" asp-action="Index">
+                    WikiScrapper
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#main-nav"
+                        aria-controls="main-nav" aria-expanded="false" aria-label="@Localizer["Nav.Toggle"]">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between" id="main-nav">
+                    <ul class="navbar-nav flex-grow-1">
+                        <li class="nav-item">
+                            <a class="nav-link @(NavActive("Home") ? "active" : null)"
+                               asp-controller="Home" asp-action="Index">@Localizer["Nav.Dashboard"]</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link @(NavActive("Voivodeships") ? "active" : null)"
+                               asp-controller="Voivodeships" asp-action="Index">@Localizer["Nav.Voivodeships"]</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link @(NavActive("Countries") ? "active" : null)"
+                               asp-controller="Countries" asp-action="Index">@Localizer["Nav.Countries"]</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link @(NavActive("Logs") ? "active" : null)"
+                               asp-controller="Logs" asp-action="Index">@Localizer["Nav.Logs"]</a>
+                        </li>
+                    </ul>
+                    <ul class="navbar-nav align-items-center gap-2">
+                        <li class="nav-item">
+                            <label class="visually-hidden" for="wiki-lang">@Localizer["Nav.Language"]</label>
+                            <select id="wiki-lang" class="form-select form-select-sm wiki-lang-select"
+                                    aria-label="@Localizer["Nav.Language"]">
+                                <option value="en" selected="@(WikiLang.Current == WikiLanguage.En)">English</option>
+                                <option value="pl" selected="@(WikiLang.Current == WikiLanguage.Pl)">Polski</option>
+                            </select>
+                        </li>
+                        <li class="nav-item">
+                            <span id="sync-badge" class="badge text-bg-primary d-none">@Localizer["Nav.Syncing"]</span>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/swagger" target="_blank" rel="noopener">@Localizer["Nav.ApiDocs"]</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <div class="container">
+        <main role="main" class="pb-4">
+            @RenderBody()
+        </main>
+    </div>
+
+    <footer class="border-top footer text-muted">
+        <div class="container py-3">
+            @Localizer["Footer.Text"]
+        </div>
+    </footer>
+
+    <script>
+        window.WikiScrapperUi = @Html.Raw(JsonSerializer.Serialize(new {
+            syncButton = Localizer["Dashboard.SyncButton"].Value,
+            syncRunning = Localizer["Dashboard.SyncRunning"].Value,
+            lastSync = Localizer["Dashboard.LastSync"].Value,
+            moreErrors = Localizer["Dashboard.MoreErrors"].Value,
+            unableReadStatus = Localizer["Js.UnableReadStatus"].Value,
+            unableStartSync = Localizer["Js.UnableStartSync"].Value,
+            starting = Localizer["Js.Starting"].Value,
+        }));
+    </script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

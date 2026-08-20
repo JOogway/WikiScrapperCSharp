@@ -1,0 +1,134 @@
+html {
+  font-size: 14px;
+}
+
+@media (min-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
+  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+}
+
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+body {
+  margin-bottom: 60px;
+}
+
+.form-floating > .form-control-plaintext::placeholder, .form-floating > .form-control::placeholder {
+  color: var(--bs-secondary-color);
+  text-align: end;
+}
+
+.form-floating > .form-control-plaintext:focus::placeholder, .form-floating > .form-control:focus::placeholder {
+  text-align: start;
+}
+
+a.stat-card,
+.voivodeship-card {
+  transition: border-color 0.15s ease;
+}
+
+a.stat-card:hover,
+.voivodeship-card:hover {
+  border-color: var(--bs-primary);
+}
+
+.voivodeship-card {
+  cursor: pointer;
+  height: 100%;
+}
+
+.voivodeship-card.is-empty {
+  cursor: default;
+}
+
+tr.row-clickable {
+  cursor: pointer;
+}
+
+.navbar-dark .nav-link.active {
+  color: #fff;
+  font-weight: 600;
+}
+
+.countries-search-spinner {
+  position: absolute;
+  right: 0.75rem;
+  top: 50%;
+  margin-top: -0.5rem;
+}
+
+a.sort-link {
+  color: inherit;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+a.sort-link:hover {
+  color: var(--bs-primary);
+  text-decoration: underline;
+}
+
+.table-countries {
+  table-layout: fixed;
+}
+
+.table-countries .col-code {
+  width: 5.5rem;
+}
+
+.table-countries .col-name {
+  width: 14rem;
+}
+
+.table-countries .col-fetched {
+  width: 9.5rem;
+}
+
+.cell-ellipsis {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.countries-virtual-frame {
+  border: 1px solid var(--bs-border-color);
+  border-radius: 0.375rem;
+}
+
+.countries-virtual-frame > .table {
+  margin-bottom: 0;
+}
+
+.countries-virtual-viewport {
+  height: min(70vh, 36rem);
+  overflow: auto;
+  position: relative;
+}
+
+.countries-virtual-spacer {
+  position: relative;
+  width: 100%;
+}
+
+.countries-virtual-window-table {
+  position: absolute;
+  left: 0;
+  right: 0;
+  width: 100%;
+}
+
+#countries-virtual-window tr {
+  height: 3.25rem;
+}
+
+#countries-virtual-window tr.is-placeholder td {
+  color: var(--bs-secondary-color);
+}

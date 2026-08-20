@@ -1,0 +1,219 @@
+@model WikiScrapper.Models.CountriesIndexViewModel
+@{
+    var paged = Model.Countries;
+    var startPage = Math.Max(1, paged.Page - 2);
+    var endPage = Math.Min(paged.TotalPages, paged.Page + 2);
+    var wikiLangCode = WikiLang.Current.ToCode();
+}
+
+<div id="countries-results">
+@if (Model.VirtualizeAll)
+{
+    <div id="countries-virtual"
+         class="countries-virtual"
+         data-chunk-size="@Model.ChunkSize"
+         data-total-count="@paged.TotalCount"
+         data-search="@Model.Search"
+         data-fetched="@Model.Fetched"
+         data-sort="@Model.Sort"
+         data-dir="@Model.Dir"
+         data-lang="@wikiLangCode"
+         data-dashboard-url="@Url.Action("Index", "Home")"
+         data-label-not-fetched="@Localizer["Countries.NotFetchedRow"]"
+         data-label-dashboard="@Localizer["Dashboard.Title"]"
+         data-label-loading="@Localizer["Countries.LoadingChunk"]"
+         data-label-status="@Localizer["Countries.VirtualStatus"]"
+         data-label-fetched-at="@Localizer["Voivodeships.FetchedAt"]"
+         data-label-no-match="@Localizer["Countries.NoMatch"]">
+        <div class="d-flex justify-content-between align-items-center flex-wrap gap-2 mb-2">
+            <small id="countries-virtual-status" class="text-muted"></small>
+            <small id="countries-virtual-loading" class="text-muted d-none">@Localizer["Countries.LoadingChunk"]</small>
+        </div>
+        <div class="table-responsive countries-virtual-frame">
+            <table class="table table-striped align-middle table-countries mb-0">
+                <thead>
+                    <tr>
+                        <th scope="col" class="col-code" aria-sort="@Model.AriaSort("code")">
+                            <a class="sort-link" asp-action="Index" asp-all-route-data="@Model.SortRoute("code")">@Localizer["Countries.Code"]@Model.SortMarker("code")</a>
+                        </th>
+                        <th scope="col" class="col-name" aria-sort="@Model.AriaSort("name")">
+                            <a class="sort-link" asp-action="Index" asp-all-route-data="@Model.SortRoute("name")">@Localizer["Countries.Name"]@Model.SortMarker("name")</a>
+                        </th>
+                        <th scope="col">@Localizer["Countries.Description"]</th>
+                        <th scope="col" class="col-fetched" aria-sort="@Model.AriaSort("fetched")">
+                            <a class="sort-link" asp-action="Index" asp-all-route-data="@Model.SortRoute("fetched")">@Localizer["Common.Fetched"]@Model.SortMarker("fetched")</a>
+                        </th>
+                    </tr>
+                </thead>
+            </table>
+            <div id="countries-virtual-viewport" class="countries-virtual-viewport" tabindex="0" role="region" aria-label="@Localizer["Countries.Title"]">
+                <div id="countries-virtual-spacer" class="countries-virtual-spacer">
+                    <table id="countries-virtual-window-table" class="table table-striped align-middle table-countries mb-0 countries-virtual-window-table">
+                        <tbody id="countries-virtual-window"></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="country-virtual-modal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="country-virtual-modal-title"></h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="@Localizer["Common.Close"]"></button>
+                </div>
+                <div class="modal-body">
+                    <p id="country-virtual-modal-body"></p>
+                </div>
+                <div class="modal-footer justify-content-between">
+                    <small class="text-muted" id="country-virtual-modal-fetched"></small>
+                    <a id="country-virtual-modal-wiki" href="#" target="_blank" rel="noopener"
+                       class="btn btn-sm btn-outline-secondary d-none">@Localizer["Common.OpenOnWikipedia"]</a>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+else if (paged.Items.Count == 0)
+{
+    <p class="text-muted">
+        @Localizer["Countries.NoMatch"]
+        @if (Model.Fetched == "no")
+        {
+            <a asp-controller="Home" asp-action="Index">@Localizer["Voivodeships.RunSync"]</a>
+            @Localizer["Countries.RunSyncMissing"]
+        }
+    </p>
+}
+else
+{
+    <div class="table-responsive">
+        <table class="table table-striped align-middle table-countries">
+            <thead>
+                <tr>
+                    <th scope="col" class="col-code" aria-sort="@Model.AriaSort("code")">
+                        <a class="sort-link" asp-action="Index" asp-all-route-data="@Model.SortRoute("code")">@Localizer["Countries.Code"]@Model.SortMarker("code")</a>
+                    </th>
+                    <th scope="col" class="col-name" aria-sort="@Model.AriaSort("name")">
+                        <a class="sort-link" asp-action="Index" asp-all-route-data="@Model.SortRoute("name")">@Localizer["Countries.Name"]@Model.SortMarker("name")</a>
+                    </th>
+                    <th scope="col">@Localizer["Countries.Description"]</th>
+                    <th scope="col" class="col-fetched" aria-sort="@Model.AriaSort("fetched")">
+                        <a class="sort-link" asp-action="Index" asp-all-route-data="@Model.SortRoute("fetched")">@Localizer["Common.Fetched"]@Model.SortMarker("fetched")</a>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var country in paged.Items)
+                {
+                    var description = country.Description;
+                    var fetched = description is not null;
+                    if (fetched)
+                    {
+                        <tr class="row-clickable" role="button" tabindex="0"
+                            data-bs-toggle="modal" data-bs-target="#country-modal-@country.Id">
+                            <td><code>@country.Code</code></td>
+                            <td class="cell-ellipsis fw-semibold" title="@country.Name">@country.Name</td>
+                            <td>
+                                @(description!.Length > 120 ? description[..120] + "…" : description)
+                            </td>
+                            <td class="text-nowrap">
+                                @country.FetchedAt!.Value.ToLocalTime().ToString("yyyy-MM-dd HH:mm")
+                            </td>
+                        </tr>
+                    }
+                    else
+                    {
+                        <tr>
+                            <td><code>@country.Code</code></td>
+                            <td class="cell-ellipsis fw-semibold" title="@country.Name">@country.Name</td>
+                            <td>
+                                <span class="text-muted">
+                                    @Localizer["Countries.NotFetchedRow"]
+                                    <a asp-controller="Home" asp-action="Index">@Localizer["Dashboard.Title"]</a>
+                                </span>
+                            </td>
+                            <td class="text-nowrap">—</td>
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
+    </div>
+
+    <nav aria-label="@Localizer["Countries.Pagination"]" class="d-flex justify-content-between align-items-center flex-wrap gap-2">
+        <small class="text-muted">
+            @Localizer["Countries.PageOf", paged.Page, paged.TotalPages, paged.TotalCount]
+        </small>
+        <ul class="pagination mb-0">
+            <li class="page-item @(paged.HasPrevious ? "" : "disabled")">
+                <a class="page-link" asp-action="Index" asp-all-route-data="@Model.PageRoute(paged.Page - 1)">@Localizer["Common.Previous"]</a>
+            </li>
+            @if (startPage > 1)
+            {
+                <li class="page-item">
+                    <a class="page-link" asp-action="Index" asp-all-route-data="@Model.PageRoute(1)">1</a>
+                </li>
+            }
+            @if (startPage > 2)
+            {
+                <li class="page-item disabled"><span class="page-link">…</span></li>
+            }
+            @for (var i = startPage; i <= endPage; i++)
+            {
+                <li class="page-item @(i == paged.Page ? "active" : "")">
+                    <a class="page-link" asp-action="Index" asp-all-route-data="@Model.PageRoute(i)">@i</a>
+                </li>
+            }
+            @if (endPage < paged.TotalPages - 1)
+            {
+                <li class="page-item disabled"><span class="page-link">…</span></li>
+            }
+            @if (endPage < paged.TotalPages)
+            {
+                <li class="page-item">
+                    <a class="page-link" asp-action="Index" asp-all-route-data="@Model.PageRoute(paged.TotalPages)">@paged.TotalPages</a>
+                </li>
+            }
+            <li class="page-item @(paged.HasNext ? "" : "disabled")">
+                <a class="page-link" asp-action="Index" asp-all-route-data="@Model.PageRoute(paged.Page + 1)">@Localizer["Common.Next"]</a>
+            </li>
+        </ul>
+    </nav>
+
+    @foreach (var country in paged.Items.Where(c => c.Description is not null))
+    {
+        var description = country.Description!;
+        var wikiUrl = country.WikiUrl;
+        var fetchedLabel = country.FetchedAt!.Value.ToLocalTime().ToString("yyyy-MM-dd HH:mm");
+        <div class="modal fade" id="country-modal-@country.Id" tabindex="-1"
+             aria-labelledby="country-modal-label-@country.Id" aria-hidden="true">
+            <div class="modal-dialog modal-lg modal-dialog-scrollable">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="country-modal-label-@country.Id">
+                            @country.Name <code class="ms-2">@country.Code</code>
+                        </h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="@Localizer["Common.Close"]"></button>
+                    </div>
+                    <div class="modal-body">
+                        <p>@description</p>
+                    </div>
+                    <div class="modal-footer justify-content-between">
+                        <small class="text-muted">
+                            @Localizer["Voivodeships.FetchedAt", fetchedLabel]
+                        </small>
+                        @if (wikiUrl is not null)
+                        {
+                            <a href="@wikiUrl" target="_blank" rel="noopener" class="btn btn-sm btn-outline-secondary">
+                                @Localizer["Common.OpenOnWikipedia"]
+                            </a>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+}
+</div>

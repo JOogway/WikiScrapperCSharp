@@ -1,0 +1,156 @@
+@model WikiScrapper.Models.DashboardViewModel
+@{
+    ViewData["Title"] = Localizer["Dashboard.Title"].Value;
+    var status = Model.SyncStatus;
+    var isRunning = status.IsRunning;
+    var percent = status.Percent ?? 0;
+    var langName = WikiLanguageExtensions.ToDisplayName(WikiLang.Current);
+}
+
+<h1 class="mb-2">@Localizer["Dashboard.Title"]</h1>
+<p class="text-muted mb-4">@Localizer["Dashboard.Intro", langName]</p>
+
+@if (TempData["SyncMessage"] is string syncMessage)
+{
+    var success = TempData["SyncSuccess"] as bool? ?? true;
+    <div class="alert @(success ? "alert-success" : "alert-warning") alert-dismissible fade show" role="alert">
+        @syncMessage
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="@Localizer["Common.Close"]"></button>
+    </div>
+}
+
+<div id="sync-result" class="@(status is { IsRunning: false, CompletedAtUtc: not null, Failed: > 0 } ? "" : "d-none")">
+    <div class="alert alert-warning" role="alert">
+        <div id="sync-result-summary">
+            @if (!isRunning && status.CompletedAtUtc is not null)
+            {
+                @Localizer["Dashboard.LastSync", status.Succeeded, status.Failed, status.Skipped]
+            }
+        </div>
+        <ul id="sync-result-errors" class="mb-0 mt-2 small">
+            @if (!isRunning)
+            {
+                foreach (var error in status.Errors.Take(15))
+                {
+                    <li>@error</li>
+                }
+                if (status.Errors.Count > 15)
+                {
+                    <li>@Html.Raw(Localizer["Dashboard.MoreErrors", status.Errors.Count - 15].Value)</li>
+                }
+            }
+        </ul>
+    </div>
+</div>
+
+@if (Model.IsFirstRun && !isRunning)
+{
+    <div class="alert alert-info" role="status">
+        @Html.Raw(Localizer["Dashboard.FirstRun"].Value)
+    </div>
+}
+
+<div class="row g-3 mb-4">
+    <div class="col-md-3">
+        <a asp-controller="Voivodeships" asp-action="Index" class="stat-card card h-100 text-decoration-none text-reset">
+            <div class="card-body">
+                <h6 class="card-subtitle text-muted mb-2">@Localizer["Dashboard.Voivodeships"]</h6>
+                <p class="display-6 mb-0">@Model.VoivodeshipsFetched / @Model.VoivodeshipCount</p>
+                <small class="text-muted">@Localizer["Dashboard.DescriptionsFetched"]</small>
+            </div>
+        </a>
+    </div>
+    <div class="col-md-3">
+        <a asp-controller="Countries" asp-action="Index" class="stat-card card h-100 text-decoration-none text-reset">
+            <div class="card-body">
+                <h6 class="card-subtitle text-muted mb-2">@Localizer["Dashboard.Countries"]</h6>
+                <p class="display-6 mb-0">@Model.CountriesFetched / @Model.CountryCount</p>
+                <small class="text-muted">@Localizer["Dashboard.DescriptionsFetched"]</small>
+            </div>
+        </a>
+    </div>
+    <div class="col-md-3">
+        <div class="card h-100">
+            <div class="card-body">
+                <h6 class="card-subtitle text-muted mb-2">@Localizer["Dashboard.LastFetch"]</h6>
+                <p class="fs-5 mb-0">
+                    @(Model.LastFetchedAt?.ToLocalTime().ToString("yyyy-MM-dd HH:mm") ?? Localizer["Common.Never"].Value)
+                </p>
+                <small class="text-muted">@Localizer["Dashboard.LocalTime"]</small>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card h-100 border-primary">
+            <div class="card-body d-flex flex-column justify-content-center">
+                <form asp-action="Sync" method="post" id="sync-form">
+                    @Html.AntiForgeryToken()
+                    <button type="submit" class="btn btn-primary w-100" id="sync-button" @(isRunning ? "disabled" : null)>
+                        <span class="spinner-border spinner-border-sm me-1 @(isRunning ? "" : "d-none")" id="sync-spinner"
+                              role="status" aria-hidden="true"></span>
+                        <span id="sync-button-label">@(isRunning ? Localizer["Dashboard.SyncRunning"] : Localizer["Dashboard.SyncButton"])</span>
+                    </button>
+                </form>
+                <small class="text-muted mt-2">@Localizer["Dashboard.SyncBackground"]</small>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="sync-progress" class="mb-4 @(isRunning ? "" : "d-none")">
+    <div class="d-flex justify-content-between small text-muted mb-1">
+        <span id="sync-progress-label">
+            @(isRunning ? $"{status.Processed} / {status.Total} — {status.CurrentItem}" : "")
+        </span>
+        <span id="sync-progress-percent">@(isRunning ? $"{percent:0}%" : "")</span>
+    </div>
+    <div class="progress" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="@percent">
+        <div id="sync-bar" class="progress-bar progress-bar-striped progress-bar-animated"
+             style="width: @(percent)%"></div>
+    </div>
+</div>
+
+<div class="d-flex justify-content-between align-items-baseline mb-3">
+    <h2 class="h4 mb-0">@Localizer["Dashboard.RecentActivity"]</h2>
+    <a asp-controller="Logs" asp-action="Index">@Localizer["Dashboard.ViewAllLogs"]</a>
+</div>
+@if (Model.RecentLogs.Count == 0)
+{
+    <p class="text-muted">@Localizer["Dashboard.NoLogs"]</p>
+}
+else
+{
+    <div class="table-responsive">
+        <table class="table table-sm table-striped align-middle">
+            <thead>
+                <tr>
+                    <th scope="col">@Localizer["Common.Time"]</th>
+                    <th scope="col">@Localizer["Common.Level"]</th>
+                    <th scope="col">@Localizer["Common.Source"]</th>
+                    <th scope="col">@Localizer["Common.Message"]</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var log in Model.RecentLogs)
+                {
+                    <tr>
+                        <td class="text-nowrap">@log.CreatedAt.ToLocalTime().ToString("yyyy-MM-dd HH:mm:ss")</td>
+                        <td>
+                            <span class="badge @log.LevelBadgeClass">@log.Level</span>
+                        </td>
+                        <td>@log.Source</td>
+                        <td>@log.Message</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+}
+
+@section Scripts {
+    <script>
+        WikiScrapper.dashboardSync({
+            initiallyRunning: @(isRunning ? "true" : "false")
+        });
+    </script>
+}

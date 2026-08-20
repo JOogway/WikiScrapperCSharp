@@ -1,0 +1,9 @@
+﻿@using System.Globalization
+@using Microsoft.Extensions.Localization
+@using WikiScrapper
+@using WikiScrapper.Models
+@using WikiScrapper.Domain
+@using WikiScrapper.Domain.Interfaces
+@inject IWikiLanguageAccessor WikiLang
+@inject IStringLocalizer<SharedResources> Localizer
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers

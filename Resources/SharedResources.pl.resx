@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype"><value>text/microsoft-resx</value></resheader>
+  <resheader name="version"><value>2.0</value></resheader>
+  <resheader name="reader"><value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+  <resheader name="writer"><value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+  <data name="Nav.Dashboard" xml:space="preserve"><value>Panel główny</value></data>
+  <data name="Nav.Voivodeships" xml:space="preserve"><value>Województwa</value></data>
+  <data name="Nav.Countries" xml:space="preserve"><value>Kraje</value></data>
+  <data name="Nav.Logs" xml:space="preserve"><value>Logi</value></data>
+  <data name="Nav.ApiDocs" xml:space="preserve"><value>Dokumentacja API</value></data>
+  <data name="Nav.Language" xml:space="preserve"><value>Język</value></data>
+  <data name="Nav.Syncing" xml:space="preserve"><value>Synchronizacja…</value></data>
+  <data name="Nav.Toggle" xml:space="preserve"><value>Przełącz nawigację</value></data>
+  <data name="Footer.Text" xml:space="preserve"><value>WikiScrapper — streszczenia Wikipedii (angielski / polski) polskich województw i krajów świata. Czasy są wyświetlane w Twojej strefie czasowej.</value></data>
+  <data name="Common.Close" xml:space="preserve"><value>Zamknij</value></data>
+  <data name="Common.All" xml:space="preserve"><value>Wszystkie</value></data>
+  <data name="Common.Apply" xml:space="preserve"><value>Zastosuj</value></data>
+  <data name="Common.Clear" xml:space="preserve"><value>Wyczyść</value></data>
+  <data name="Common.Time" xml:space="preserve"><value>Czas</value></data>
+  <data name="Common.Level" xml:space="preserve"><value>Poziom</value></data>
+  <data name="Common.Source" xml:space="preserve"><value>Źródło</value></data>
+  <data name="Common.Message" xml:space="preserve"><value>Wiadomość</value></data>
+  <data name="Common.Exception" xml:space="preserve"><value>Wyjątek</value></data>
+  <data name="Common.Fetched" xml:space="preserve"><value>Pobrano</value></data>
+  <data name="Common.NotFetched" xml:space="preserve"><value>Nie pobrano</value></data>
+  <data name="Common.Never" xml:space="preserve"><value>nigdy</value></data>
+  <data name="Common.Details" xml:space="preserve"><value>szczegóły</value></data>
+  <data name="Common.Previous" xml:space="preserve"><value>Poprzednia</value></data>
+  <data name="Common.Next" xml:space="preserve"><value>Następna</value></data>
+  <data name="Common.OpenOnWikipedia" xml:space="preserve"><value>Otwórz na Wikipedii</value></data>
+  <data name="Dashboard.Title" xml:space="preserve"><value>Panel główny</value></data>
+  <data name="Dashboard.Intro" xml:space="preserve"><value>Streszczenia Wikipedii ({0}) dla 16 polskich województw i krajów świata. Synchronizacja pobiera wersje angielską i polską.</value></data>
+  <data name="Dashboard.FirstRun" xml:space="preserve"><value>Nic jeszcze nie pobrano. Naciśnij &lt;strong&gt;Synchronizuj z Wikipedią&lt;/strong&gt;, aby pobrać opisy. Zwykle trwa to mniej niż minutę i możesz korzystać z reszty aplikacji w trakcie.</value></data>
+  <data name="Dashboard.Voivodeships" xml:space="preserve"><value>Województwa</value></data>
+  <data name="Dashboard.Countries" xml:space="preserve"><value>Kraje</value></data>
+  <data name="Dashboard.DescriptionsFetched" xml:space="preserve"><value>pobranych opisów</value></data>
+  <data name="Dashboard.LastFetch" xml:space="preserve"><value>Ostatnie pobranie</value></data>
+  <data name="Dashboard.LocalTime" xml:space="preserve"><value>czas lokalny</value></data>
+  <data name="Dashboard.SyncButton" xml:space="preserve"><value>Synchronizuj z Wikipedią</value></data>
+  <data name="Dashboard.SyncRunning" xml:space="preserve"><value>Synchronizacja…</value></data>
+  <data name="Dashboard.SyncBackground" xml:space="preserve"><value>Działa w tle; możesz opuścić tę stronę.</value></data>
+  <data name="Dashboard.RecentActivity" xml:space="preserve"><value>Ostatnia aktywność</value></data>
+  <data name="Dashboard.ViewAllLogs" xml:space="preserve"><value>Zobacz wszystkie logi</value></data>
+  <data name="Dashboard.NoLogs" xml:space="preserve"><value>Brak wpisów w logu. Uruchom synchronizację, aby rozpocząć.</value></data>
+  <data name="Dashboard.LastSync" xml:space="preserve"><value>Ostatnia synchronizacja: {0} powiodło się, {1} nie powiodło się, {2} pominięto.</value></data>
+  <data name="Dashboard.MoreErrors" xml:space="preserve"><value>…i jeszcze {0}. Zobacz &lt;a href="/Logs?level=Error"&gt;Logi&lt;/a&gt;.</value></data>
+  <data name="Dashboard.SyncAlreadyRunning" xml:space="preserve"><value>Synchronizacja już trwa.</value></data>
+  <data name="Voivodeships.Title" xml:space="preserve"><value>Polskie województwa</value></data>
+  <data name="Voivodeships.Intro" xml:space="preserve"><value>Streszczenia Wikipedii ({0}) dla 16 województw. Kliknij kartę z pobranym opisem, aby zobaczyć pełny tekst.</value></data>
+  <data name="Voivodeships.NotFetchedYet" xml:space="preserve"><value>Jeszcze nie pobrano w języku {0}.</value></data>
+  <data name="Voivodeships.RunSync" xml:space="preserve"><value>Uruchom synchronizację na panelu głównym</value></data>
+  <data name="Voivodeships.RunSyncHint" xml:space="preserve"><value>, aby pobrać ten opis.</value></data>
+  <data name="Voivodeships.FetchedAt" xml:space="preserve"><value>Pobrano {0}</value></data>
+  <data name="Countries.Title" xml:space="preserve"><value>Kraje świata</value></data>
+  <data name="Countries.Intro" xml:space="preserve"><value>Streszczenia Wikipedii ({0}). Kliknij wiersz z pobranym opisem, aby zobaczyć pełny tekst.</value></data>
+  <data name="Countries.Search" xml:space="preserve"><value>Szukaj</value></data>
+  <data name="Countries.SearchPlaceholder" xml:space="preserve"><value>Nazwa lub kod ISO…</value></data>
+  <data name="Countries.SearchAria" xml:space="preserve"><value>Szukaj krajów</value></data>
+  <data name="Countries.Status" xml:space="preserve"><value>Status</value></data>
+  <data name="Countries.PageSize" xml:space="preserve"><value>Rozmiar strony</value></data>
+  <data name="Countries.NoMatch" xml:space="preserve"><value>Brak krajów pasujących do filtrów.</value></data>
+  <data name="Countries.RunSyncMissing" xml:space="preserve"><value>, aby pobrać brakujące opisy.</value></data>
+  <data name="Countries.Code" xml:space="preserve"><value>Kod</value></data>
+  <data name="Countries.Name" xml:space="preserve"><value>Nazwa</value></data>
+  <data name="Countries.Description" xml:space="preserve"><value>Opis</value></data>
+  <data name="Countries.NotFetchedRow" xml:space="preserve"><value>Jeszcze nie pobrano —</value></data>
+  <data name="Countries.Pagination" xml:space="preserve"><value>Stronicowanie krajów</value></data>
+  <data name="Countries.PageOf" xml:space="preserve"><value>Strona {0} z {1} ({2} krajów)</value></data>
+  <data name="Countries.VirtualStatus" xml:space="preserve"><value>Wszystkie kraje: {0} — wiersze ładują się podczas przewijania</value></data>
+  <data name="Countries.LoadingChunk" xml:space="preserve"><value>Ładowanie…</value></data>
+  <data name="Logs.Title" xml:space="preserve"><value>Logi aplikacji</value></data>
+  <data name="Logs.Intro" xml:space="preserve"><value>100 ostatnich wpisów audytu (czas lokalny). Pełne logi strukturalne są zapisywane w &lt;code&gt;logs/wiki-scrapper-YYYYMMDD.log&lt;/code&gt; w folderze aplikacji (jeden plik dziennie; odśwież plik w edytorze, aby zobaczyć najnowsze wpisy).</value></data>
+  <data name="Logs.NoEntries" xml:space="preserve"><value>Brak wpisów w logu.</value></data>
+  <data name="Logs.NoEntriesLevel" xml:space="preserve"><value>Brak wpisów w logu na tym poziomie.</value></data>
+  <data name="Js.UnableReadStatus" xml:space="preserve"><value>Nie można odczytać statusu synchronizacji.</value></data>
+  <data name="Js.UnableStartSync" xml:space="preserve"><value>Nie można uruchomić synchronizacji.</value></data>
+  <data name="Js.Starting" xml:space="preserve"><value>Uruchamianie…</value></data>
+</root>
